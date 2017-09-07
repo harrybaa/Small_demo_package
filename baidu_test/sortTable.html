@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sort Table Test</title>
+    <style>
+      body{
+        margin: 0;
+        padding: 0;
+      }
+
+      #myTable{
+        width: 800px;
+        margin: 0 auto;
+        background: #e4e4e4;
+      }
+
+      th{
+        background: #c3c3c3;
+        cursor: pointer;
+      }
+
+    </style>
+  </head>
+
+  <body>
+    <table id="myTable" border="1">
+      <tr id="myTableTitle">
+        <th>ID</th>
+        <th>YEAR</th>
+        <th>VALUE</th>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>2017</td>
+        <td>now</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>2056</td>
+        <td>future</td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>1997</td>
+        <td>past</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>1024</td>
+        <td>where?</td>
+      </tr>
+    </table>
+
+    <script>
+
+      window.onload = function() {
+        var myTableTitle = document.getElementById('myTableTitle');
+        var sequence = "INCR";
+        
+        // 代理title的点击事件
+        myTableTitle.onclick = function(e){
+          var e = e || window.event,
+          target = e.target || e.srcElement;
+
+          if(target.nodeName.toLowerCase() == 'th') {
+            let targetName = target.innerHTML;
+            sortTable(targetName, sequence);
+          }
+        }
+        
+        // 笔试题主函数，重新排序table。
+        var sortTable = function(targetName, sequence) {
+          var myTable = document.getElementById('myTable'),
+              myTableRows = document.getElementsByTagName('tr'),
+              oldValues = [],
+              sortedValues = [],
+              index = targetName == 'ID' ? 0 : targetName == 'YEAR' ? 1 : 2;
+          
+          // 抓取原table所有cell的值，并保存到一个数组里。
+          for(let i = 1; i < myTableRows.length; i++) {
+            // console.log(myTableRows[i])
+            oldValues.push(myTableRows[i].getElementsByTagName('td')[index].innerText);
+          }
+          
+          sortedValues = oldValues.slice(0).sort();
+          // console.log("sortedValues" + sortedValues)
+          
+          // 放入排好序的新表格
+          // myTable.appendChild(myTableRows[0]);
+          
+          sortedValues.forEach(item => {
+            let originalPlace = oldValues.indexOf(item);
+            myTable.appendChild(myTableRows[originalPlace + 1]);
+          })
+        }
+      }
+    </script>
+  </body>
+</html>

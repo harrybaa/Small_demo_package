@@ -5,8 +5,7 @@ var firstLine = "abcd";
 var secondLine = "??"
 
 var findMatch = function(firstLine, secondLine) {
-    var count = 0,
-        firstLen = firstLine.length,
+    var firstLen = firstLine.length,
         secondLen = secondLine.length,
         subStr,
         uniqueSet = new Set();
